@@ -8,8 +8,7 @@ from collections import defaultdict
 
 # ฟังก์ชันหลักสำหรับการแสดงผลผ่าน Streamlit
 def main():
-    st.title("Object Detection")
-    st.write("ตัวอย่างโปรแกรมจาก ดร.ไช้ Ignite Innovation")
+    st.title("thai food detect")
 
     # กำหนดเส้นทางของโมเดล YOLOv8
     model_path = "best.pt"  # เปลี่ยนเป็นชื่อไฟล์โมเดลของเรา
@@ -23,7 +22,7 @@ def main():
         tfile.write(uploaded_file.read())
 
         # โหลดโมเดล YOLO
-        st.info("Model Loading ...")
+        st.info("โหลดโมเดล ...")
         model = YOLO(model_path) 
 
         # อ่านไฟล์ภาพที่อัปโหลดด้วย OpenCV
@@ -33,7 +32,7 @@ def main():
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) 
 
         # เริ่มการตรวจจับวัตถุด้วยโมเดล
-        st.info("Object Detecting ...")
+        st.info("ตรวจจับวัตถุ ...")
         results = model(img)
 
         # เตรียมตัวแปรสำหรับการเก็บข้อมูล
@@ -52,7 +51,7 @@ def main():
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
         # แสดงภาพผลลัพธ์
-        st.image(img_rgb, caption="ผลการทำ Object Detection", use_container_width=True)
+        st.image(img_rgb, caption="ผลการ Detection", use_container_width=True)
 
         # แสดงจำนวนวัตถุแยกตามประเภท
         st.subheader("สรุปผลการ Detect")
@@ -60,7 +59,7 @@ def main():
             st.write(f"- **{label}**: {count}")
 
         # แจ้งสถานะการทำงานสำเร็จ
-        st.success("Object Detection Completed")
+        st.success("ทำงานสำเร็จ")
 
         # ลบไฟล์ชั่วคราว
         try:

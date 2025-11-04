@@ -10,7 +10,7 @@ def video_stream(model, confidence_threshold):
     cap = cv2.VideoCapture(1)  #(กล้อง USB 1, 2, etc.)
 
     if not cap.isOpened():
-        st.error("Cannot access the webcam. Please check your camera connection.")
+        st.error("หากล้องไม่เจอ")
         return
 
     # จองพื้นที่ในหน้าเว็บของ Streamlit
@@ -18,12 +18,12 @@ def video_stream(model, confidence_threshold):
     label_count_placeholder = st.empty()
 
     # สร้างปุ่มสำหรับหยุดการทำงานของกล้อง
-    stop_button = st.button("Stop Webcam")
+    stop_button = st.button("หยุดการทำงานของกล้อง")
 
     while True:
         ret, frame = cap.read()
         if not ret:
-            st.error("Cannot read frame from webcam.")
+            st.error("ไม่สามารถอ่านภาพจากกล้องเว็บแคมได้")
             break
 
         # นำภาพเข้าสู่การประมวลผลโดยโมเดล
@@ -69,16 +69,15 @@ def video_stream(model, confidence_threshold):
 # ฟังก์ชันหลักของโปรแกรม # ใช้โมเดล best.pt 
 
 def main():
-    st.title("Real-Time Object Detection")
-    st.write("ตัวอย่างโปรแกรมจาก ดร.ไช้ Ignite Innovation")
+    st.title("thai food detect realtime")
 
     # กำหนดไฟล์โมเดล
     model_path = "best.pt"
 
     # โหลดโมเดล
-    st.info("Loading model...")
+    st.info("โหลดโมเดล ...")
     model = YOLO(model_path)
-    st.success("Model loaded successfully.")
+    st.success("โหลดโมเดลสำเร็จ")
 
     # สร้าง Slider สำหรับปรับค่า Confidence
     confidence_threshold = st.slider("Set Confidence Threshold", min_value=0.0, max_value=1.0, value=0.99, step=0.01)
